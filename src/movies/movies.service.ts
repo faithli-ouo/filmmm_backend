@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { QueryResponse } from 'src/types/global/global.type';
+import { MovieResultObject } from 'src/types/movies/moveis.types';
 
 export type MovieList = "now_playing" | "popular" | "top_rated" | "upcoming"
 
@@ -10,7 +12,8 @@ const region = process.env.TMDB_region
 @Injectable()
 export class MoviesService {
 
-  async getMovies(type: MovieList): Promise<unknown> {
+  async getMovies(type: MovieList): Promise<QueryResponse<MovieResultObject>> {
+    
     const url = `${originUrl}${type}?language=${language}&region=${region}`;
     const options = {
       method: 'GET',

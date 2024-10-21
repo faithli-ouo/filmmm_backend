@@ -1,13 +1,15 @@
-import { Controller, Get,  HttpException,  HttpStatus,  Query, } from '@nestjs/common';
+import { Controller, Get,  HttpException,  HttpStatus,  Param,  Query, } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { MovieTypesDTO } from 'src/movies/dto/movies_types_dto';
+import { MovieResultObject } from 'src/types/movies/moveis.types';
+import { QueryResponse } from 'src/types/global/global.type';
 
 @Controller('movies')
 export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
 
   @Get()
-  async findAll(@Query() movieTypesDTO: MovieTypesDTO ): Promise<unknown> {
+  async findAll(@Query() movieTypesDTO: MovieTypesDTO ): Promise<QueryResponse<MovieResultObject>> {
     const type = movieTypesDTO.type
     try {
       const res = await this.moviesService.getMovies(type)
@@ -21,4 +23,11 @@ export class MoviesController {
       });
     }
     }
+
+
+  @Get("/:id")
+  async findone(@Param('id') id:number): Promise<unknown> {
+    return id
   }
+
+}

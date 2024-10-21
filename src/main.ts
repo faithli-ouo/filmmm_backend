@@ -6,11 +6,13 @@ declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({
-    transform: true,  // Transforms query parameters into DTO types
-    whitelist: true,  // Strips out properties that aren't defined in the DTO
-    forbidNonWhitelisted: true, 
-  })); 
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true, // Transforms query parameters into DTO types
+      whitelist: true, // Strips out properties that aren't defined in the DTO
+      forbidNonWhitelisted: true,
+    }),
+  );
   await app.listen(process.env.PORT ?? 3000);
 
   if (module.hot) {

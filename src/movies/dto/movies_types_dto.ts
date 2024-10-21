@@ -6,3 +6,4 @@ export class MovieTypesDTO {
   @IsIn(['now_playing', 'popular', 'top_rated', 'upcoming'], { message: 'Type must be one of: now_playing, popular, top_rated, upcoming' })
   type: MovieList;
 }
+

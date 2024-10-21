@@ -1,7 +1,7 @@
-import { Controller, Get,  HttpException,  HttpStatus,  Param,  Query, } from '@nestjs/common';
+import { Controller, Get,  HttpException,  HttpStatus,  Param,  ParseIntPipe,  Query, } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { MovieTypesDTO } from 'src/movies/dto/movies_types_dto';
-import { MovieResultObject } from 'src/types/movies/moveis.types';
+import { MovieDetailsObject, MovieResultObject } from 'src/types/movies/moveis.types';
 import { QueryResponse } from 'src/types/global/global.type';
 
 @Controller('movies')
@@ -17,7 +17,7 @@ export class MoviesController {
     } catch (error) {
       throw new HttpException({
         status: HttpStatus.FORBIDDEN,
-        error: 'This is a custom message',
+        error: 'Data not found',
       }, HttpStatus.FORBIDDEN, {
         cause: error
       });
@@ -26,8 +26,23 @@ export class MoviesController {
 
 
   @Get("/:id")
-  async findone(@Param('id') id:number): Promise<unknown> {
-    return id
+  async findone(@Param('id', ParseIntPipe) id: number ): Promise<MovieDetailsObject> {
+
+    try {
+
+      const res = await this.moviesService.getMoviesDetailsByID(id)
+      return res;
+
+    } catch (error) {
+
+      throw new HttpException({
+        status: HttpStatus.FORBIDDEN,
+        error: 'Data not found',
+      }, HttpStatus.FORBIDDEN, {
+        cause: error
+      });
+
+    };
   }
 
 }

@@ -1,3 +1,19 @@
+export type MoviesDeatilsOtherTypes = 
+  | 'alternative_titles'
+  | 'credits'
+  | 'social_id'
+  | 'images'
+  | 'keywords'
+  | 'inclued_list'
+  | 'recommendations'
+  | 'release_date'
+  | 'reviews'
+  | 'similar'
+  | 'translations'
+  | 'videos'
+  | 'watch_provider'
+  | 'lastest'; 
+
 export type MoviesDetailsOtherObject =
   | MoviesAlternativeTitles
   | MoviesCredits
@@ -11,7 +27,7 @@ export type MoviesDetailsOtherObject =
   | MoviesSimilar
   | MoviesTranslations
   | MoviesVideos
-  | MovieWatchProviders
+  | MoviesWatchProviders
   | MoviesLastest;
 
 export interface MoviesAlternativeTitles {
@@ -219,7 +235,7 @@ export interface MoviesVideos {
     | [];
 }
 
-export interface MovieWatchProviders {
+export interface MoviesWatchProviders {
   id: number;
   results: {
     [locale: string]: {
